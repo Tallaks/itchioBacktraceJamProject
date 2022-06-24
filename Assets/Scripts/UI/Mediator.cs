@@ -1,8 +1,7 @@
-using Game.Infrastructure.Services;
-using Game.Infrastructure.Services.StateMachine;
 using Sirenix.OdinInspector;
 using UI.MainMenu;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace UI
 {
@@ -11,17 +10,15 @@ namespace UI
     [Required, SceneObjectsOnly] public MainPanel MainPanel;
     [Required, SceneObjectsOnly] public SidePanel SidePanel;
     
-    private StateMachine _stateMachine;
-
     private void Awake()
     {
       DontDestroyOnLoad(gameObject);
-      _stateMachine = AllServices.Instance.Resolve<StateMachine>();
+      DontDestroyOnLoad(FindObjectOfType<EventSystem>());
     }
-
-    [Button, DisableInEditorMode] public void StartGame() => MainPanel.StartGame();
+    
+    [Button, GUIColor(0, 1, 0), DisableInEditorMode] public void StartGame() => MainPanel.StartGame();
     [Button, DisableInEditorMode] public void OpenHighScore() => MainPanel.OpenHighScore();
-    [Button, DisableInEditorMode] public void ExitGame() => MainPanel.ExitGame();
     [Button, DisableInEditorMode] public void ChangeMusicState() => SidePanel.ChangeMusicState();
+    [Button, GUIColor(1, 0, 0), DisableInEditorMode] public void ExitGame() => MainPanel.ExitGame();
   }
 }

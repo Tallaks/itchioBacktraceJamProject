@@ -16,6 +16,7 @@ namespace UI.MainMenu
 
     public void ChangeMusicState()
     {
+      Debug.Log("Music Changed");
     }
   }
 }

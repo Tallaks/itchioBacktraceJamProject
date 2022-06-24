@@ -1,3 +1,6 @@
+using Game.Infrastructure.Services;
+using Game.Infrastructure.Services.StateMachine;
+using Game.Infrastructure.Services.StateMachine.States;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,8 +13,12 @@ namespace UI.MainMenu
     [Required, SceneObjectsOnly] public Button HighScoreButton;
     [Required, SceneObjectsOnly] public Button ExitButton;
 
+    private StateMachine _stateMachine;
+
     private void Awake()
     {
+      _stateMachine = AllServices.Instance.Resolve<StateMachine>();
+      
       StartGameButton.onClick.AddListener(StartGame);
       HighScoreButton.onClick.AddListener(OpenHighScore);
       ExitButton.onClick.AddListener(ExitGame);
@@ -19,7 +26,7 @@ namespace UI.MainMenu
 
     public void StartGame()
     {
-      Debug.Log("Start Game");
+      _stateMachine.NextState(new StartGameState(AllServices.Instance.Resolve<CoroutineRunner>()));
     }
 
     public void OpenHighScore()
