@@ -15,9 +15,14 @@ namespace Game.Infrastructure.Services.StateMachine
 
     public void Enter()
     {
-      AllServices.Instance.RegisterService(new ObstacleFactory());
-      
+      RegisterServices();
       _runner.StartCoroutine(LoadMenuScene());
+    }
+
+    private static void RegisterServices()
+    {
+      AllServices.Instance.RegisterService(new ObstacleFactory());
+      AllServices.Instance.RegisterService(new TargetFactory());
     }
 
     private IEnumerator LoadMenuScene()

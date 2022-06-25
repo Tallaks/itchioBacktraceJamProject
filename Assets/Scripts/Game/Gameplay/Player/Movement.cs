@@ -27,9 +27,11 @@ namespace Game.Gameplay.Player
 
     private Rigidbody2D _rigidbody;
     private bool _movingAllowed;
+    
     private StateMachine _stateMachine;
     private CoroutineRunner _coroutineRunner;
     private ObstacleFactory _obstacleFactory;
+    private TargetFactory _targetFactory;
 
     private void Awake()
     {
@@ -40,6 +42,7 @@ namespace Game.Gameplay.Player
       _stateMachine = AllServices.Instance.Resolve<StateMachine>();
       _coroutineRunner = AllServices.Instance.Resolve<CoroutineRunner>();
       _obstacleFactory = AllServices.Instance.Resolve<ObstacleFactory>();
+      _targetFactory = AllServices.Instance.Resolve<TargetFactory>();
     }
 
     private void Update()
@@ -49,7 +52,7 @@ namespace Game.Gameplay.Player
         if(_movingAllowed)
           _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         else
-          _stateMachine.NextState(new GameLoopState(_coroutineRunner, _obstacleFactory));
+          _stateMachine.NextState(new GameLoopState(_coroutineRunner, _obstacleFactory, _targetFactory));
       }
       if(_movingAllowed)
         transform.Translate(Vector2.right * _movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime);
