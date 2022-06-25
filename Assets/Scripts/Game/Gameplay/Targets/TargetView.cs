@@ -9,10 +9,13 @@ namespace Game.Gameplay.Targets
   {
     [SerializeField, Required] private SpriteRenderer _spriteRenderer;
 
+    public bool isHelped = false;
+
     public void ShowIsHelped()
     {
       _spriteRenderer.color = Color.gray;
-      GetComponent<Collider2D>().enabled = false;
+      isHelped = true;
+      //GetComponent<Collider2D>().enabled = false;
     }
   }
 }
