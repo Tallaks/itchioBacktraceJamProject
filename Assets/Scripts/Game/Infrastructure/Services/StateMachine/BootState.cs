@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using Game.Application;
 using Game.Infrastructure.Services.Factory;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Game.Infrastructure.Services.StateMachine
 
     public void Enter()
     {
+      DOTween.Init();
       RegisterServices();
       _runner.StartCoroutine(LoadMenuScene());
     }

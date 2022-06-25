@@ -7,7 +7,7 @@ namespace Game.Infrastructure.Services.Factory
   {
     private readonly Vector3 _spawnPosition = new Vector3(15, 0, 0);
     
-    private const string TwoLinePath = "Prefabs/Obstacles/TwoLinesObstacle";
+    private const string TwoLinePath = "Prefabs/Gameplay/Obstacles/TwoLinesObstacle";
     
     public override BaseObstacle Create()
     {

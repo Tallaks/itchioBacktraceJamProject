@@ -14,11 +14,13 @@ namespace Game.UI.MainMenu
     [Required, SceneObjectsOnly] public Button ExitButton;
 
     private StateMachine _stateMachine;
+    private CoroutineRunner _coroutineRunner;
 
     private void Awake()
     {
       _stateMachine = AllServices.Instance.Resolve<StateMachine>();
-      
+      _coroutineRunner = AllServices.Instance.Resolve<CoroutineRunner>();
+
       StartGameButton.onClick.AddListener(StartGame);
       HighScoreButton.onClick.AddListener(OpenHighScore);
       ExitButton.onClick.AddListener(ExitGame);
@@ -26,13 +28,17 @@ namespace Game.UI.MainMenu
 
     public void StartGame()
     {
-      _stateMachine.NextState(new StartGameState(AllServices.Instance.Resolve<CoroutineRunner>()));
+      _stateMachine.NextState(new StartGameState(_coroutineRunner, AllServices.Instance.Resolve<Mediator>()));
+      SetActiveMainPanel(false);
     }
 
     public void OpenHighScore()
     {
       Debug.Log("High Score");
     }
+
+    public void SetActiveMainPanel(bool state) =>
+      gameObject.SetActive(state);
 
     public void ExitGame()
     {

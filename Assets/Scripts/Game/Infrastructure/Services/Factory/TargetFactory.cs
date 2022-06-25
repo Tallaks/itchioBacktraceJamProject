@@ -5,7 +5,7 @@ namespace Game.Infrastructure.Services.Factory
 {
   public class TargetFactory : AbstractFactory<Target>
   {
-    private const string TargetPath = "Prefabs/Target";
+    private const string TargetPath = "Prefabs/Gameplay/Target";
 
     public override Target Create()
     {
