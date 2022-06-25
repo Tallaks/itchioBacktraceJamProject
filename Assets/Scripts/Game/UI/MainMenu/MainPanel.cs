@@ -1,6 +1,6 @@
+using Game.Gameplay;
 using Game.Infrastructure.Services;
 using Game.Infrastructure.Services.StateMachine;
-using Game.Infrastructure.Services.StateMachine.States;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +39,7 @@ namespace Game.UI.MainMenu
 #if UNITY_EDITOR
       UnityEditor.EditorApplication.ExecuteMenuItem("Edit/Play");
 #endif
-      Application.Quit();
+      UnityEngine.Application.Quit();
     }
   }
 }

@@ -1,8 +1,10 @@
 using System.Collections;
+using Game.Infrastructure.Services;
+using Game.Infrastructure.Services.StateMachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Game.Infrastructure.Services.StateMachine.States
+namespace Game.Gameplay
 {
   public class StartGameState : IState
   {
@@ -11,10 +13,8 @@ namespace Game.Infrastructure.Services.StateMachine.States
     public StartGameState(CoroutineRunner coroutineRunner) => 
       _coroutineRunner = coroutineRunner;
 
-    public void Enter()
-    {
+    public void Enter() => 
       _coroutineRunner.StartCoroutine(LoadGameScene());
-    }
 
     private IEnumerator LoadGameScene()
     {

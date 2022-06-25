@@ -1,7 +1,6 @@
 using Backtrace.Unity;
 using Game.Infrastructure.Services;
 using Game.Infrastructure.Services.StateMachine;
-using Game.Infrastructure.Services.StateMachine.States;
 using UnityEngine;
 
 namespace Game.Infrastructure

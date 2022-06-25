@@ -1,8 +1,10 @@
 using System.Collections;
+using Game.Application;
+using Game.Infrastructure.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Game.Infrastructure.Services.StateMachine.States
+namespace Game.Infrastructure.Services.StateMachine
 {
   public class BootState : IState
   {
@@ -11,8 +13,12 @@ namespace Game.Infrastructure.Services.StateMachine.States
     public BootState(CoroutineRunner runner) => 
       _runner = runner;
 
-    public void Enter() => 
+    public void Enter()
+    {
+      AllServices.Instance.RegisterService(new ObstacleFactory());
+      
       _runner.StartCoroutine(LoadMenuScene());
+    }
 
     private IEnumerator LoadMenuScene()
     {

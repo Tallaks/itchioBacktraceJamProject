@@ -1,5 +1,4 @@
 using System;
-using Game.Infrastructure.Services.StateMachine.States;
 
 namespace Game.Infrastructure.Services.StateMachine
 {

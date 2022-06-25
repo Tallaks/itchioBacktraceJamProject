@@ -1,4 +1,6 @@
-namespace Game.Infrastructure.Services.StateMachine.States
+using Game.Infrastructure.Services.StateMachine;
+
+namespace Game.Application
 {
   public class MainMenuState : IState
   {

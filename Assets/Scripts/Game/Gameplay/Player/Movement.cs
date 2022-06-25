@@ -1,4 +1,7 @@
 using Extensions;
+using Game.Infrastructure.Services;
+using Game.Infrastructure.Services.Factory;
+using Game.Infrastructure.Services.StateMachine;
 using UnityEngine;
 
 namespace Game.Gameplay.Player
@@ -23,16 +26,33 @@ namespace Game.Gameplay.Player
       RightXBorder - GetComponent<Collider2D>().bounds.extents.x;
 
     private Rigidbody2D _rigidbody;
+    private bool _movingAllowed;
+    private StateMachine _stateMachine;
+    private CoroutineRunner _coroutineRunner;
+    private ObstacleFactory _obstacleFactory;
 
-    private void Awake() => 
+    private void Awake()
+    {
+      _movingAllowed = false;
       _rigidbody = GetComponent<Rigidbody2D>();
+      _rigidbody.gravityScale = 0;
+      
+      _stateMachine = AllServices.Instance.Resolve<StateMachine>();
+      _coroutineRunner = AllServices.Instance.Resolve<CoroutineRunner>();
+      _obstacleFactory = AllServices.Instance.Resolve<ObstacleFactory>();
+    }
 
     private void Update()
     {
       if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
-        _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-
-      transform.Translate(Vector2.right * _movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime);
+      {
+        if(_movingAllowed)
+          _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        else
+          _stateMachine.NextState(new GameLoopState(_coroutineRunner, _obstacleFactory));
+      }
+      if(_movingAllowed)
+        transform.Translate(Vector2.right * _movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime);
       ClampXPosition();
     }
 
@@ -42,6 +62,12 @@ namespace Game.Gameplay.Player
         transform.position = transform.position.SetX(MinX);
       if (transform.position.x > MaxX)
         transform.position = transform.position.SetX(MaxX);
+    }
+
+    public void StartFalling()
+    {
+      _movingAllowed = true;
+      _rigidbody.gravityScale = 1;
     }
   }
 }
