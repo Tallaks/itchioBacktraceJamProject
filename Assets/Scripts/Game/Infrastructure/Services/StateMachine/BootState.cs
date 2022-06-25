@@ -23,6 +23,7 @@ namespace Game.Infrastructure.Services.StateMachine
     {
       AllServices.Instance.RegisterService(new ObstacleFactory());
       AllServices.Instance.RegisterService(new TargetFactory());
+      AllServices.Instance.RegisterService(new AidFactory());
     }
 
     private IEnumerator LoadMenuScene()
