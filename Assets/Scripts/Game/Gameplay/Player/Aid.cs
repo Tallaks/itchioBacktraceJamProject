@@ -1,5 +1,6 @@
 using Game.Gameplay.Targets;
 using UnityEngine;
+using Game.Gameplay.Common;
 
 namespace Game.Gameplay.Player
 {
@@ -13,15 +14,20 @@ namespace Game.Gameplay.Player
       var target = col.GetComponent<Target>();
       if (target != null) 
         ConsumeAid(target);
+      if (col.gameObject.GetComponent<PlayerKiller>())
+        Destroy(gameObject);
     }
 
-    public void Attach(PlayerEntity player) => 
+
+        public void Attach(PlayerEntity player) => 
       _player = player;
 
     private void ConsumeAid(Target target)
     {
       _player.Score.AddFor(target);
-      target.GetComponent<TargetView>().ShowIsHelped();
+      var targetView = target.GetComponent<TargetView>();
+      if(!targetView.isHelped)
+           targetView.ShowIsHelped();
       Destroy(gameObject);
     }
   }
