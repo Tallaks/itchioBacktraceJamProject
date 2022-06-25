@@ -9,5 +9,8 @@ namespace Game.Gameplay.Common
 
     private void Update() => 
       transform.Translate(Vector3.left * _speed * Time.deltaTime);
+
+    public void StopMoving() => 
+      _speed = 0;
   }
 }

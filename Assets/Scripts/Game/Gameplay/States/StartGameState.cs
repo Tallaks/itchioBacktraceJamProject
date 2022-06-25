@@ -5,7 +5,7 @@ using Game.Infrastructure.Services.StateMachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Game.Gameplay
+namespace Game.Gameplay.States
 {
   public class StartGameState : IState
   {

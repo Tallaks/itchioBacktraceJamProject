@@ -1,16 +1,20 @@
 using System.Collections;
+using Game.Gameplay.Player;
 using Game.Infrastructure.Services;
 using Game.Infrastructure.Services.Factory;
 using Game.Infrastructure.Services.StateMachine;
 using UnityEngine;
 
-namespace Game.Gameplay.Player
+namespace Game.Gameplay.States
 {
   public class GameLoopState : IState
   {
     private readonly CoroutineRunner _coroutineRunner;
     private readonly ObstacleFactory _obstacleFactory;
     private readonly TargetFactory _targetFactory;
+    
+    private Coroutine _obstaclesSpawnRoutine;
+    private Coroutine _targetSpawnRoutine;
 
     public GameLoopState(CoroutineRunner coroutineRunner, ObstacleFactory obstacleFactory, TargetFactory targetFactory)
     {
@@ -22,8 +26,8 @@ namespace Game.Gameplay.Player
     public void Enter()
     {
       Object.FindObjectOfType<Movement>().StartMoving();
-      _coroutineRunner.StartCoroutine(SpawnObsatcles());
-      _coroutineRunner.StartCoroutine(SpawnTargets());
+      _obstaclesSpawnRoutine = _coroutineRunner.StartCoroutine(SpawnObsatcles());
+      _targetSpawnRoutine = _coroutineRunner.StartCoroutine(SpawnTargets());
     }
 
     private IEnumerator SpawnTargets()
@@ -47,6 +51,8 @@ namespace Game.Gameplay.Player
 
     public void Exit()
     {
+      _coroutineRunner.StopCoroutine(_obstaclesSpawnRoutine);
+      _coroutineRunner.StopCoroutine(_targetSpawnRoutine);
     }
   }
 }

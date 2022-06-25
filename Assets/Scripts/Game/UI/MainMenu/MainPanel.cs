@@ -1,4 +1,4 @@
-using Game.Gameplay;
+using Game.Gameplay.States;
 using Game.Infrastructure.Services;
 using Game.Infrastructure.Services.StateMachine;
 using Sirenix.OdinInspector;
