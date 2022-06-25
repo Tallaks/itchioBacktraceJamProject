@@ -1,10 +1,11 @@
 using Extensions;
 using UnityEngine;
 
-namespace Game.Gameplay
+namespace Game.Gameplay.Player
 {
+  [RequireComponent(typeof(PlayerEntity))]
   [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-  public class Player : MonoBehaviour, IKillable
+  public class Movement : MonoBehaviour
   {
     private const float LeftXBorder = -9;
     private const float RightXBorder = 8.5f;
@@ -42,8 +43,5 @@ namespace Game.Gameplay
       if (transform.position.x > MaxX)
         transform.position = transform.position.SetX(MaxX);
     }
-
-    public void Kill() => 
-      Destroy(gameObject);
   }
 }
