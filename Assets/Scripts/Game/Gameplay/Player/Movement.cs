@@ -12,6 +12,7 @@ namespace Game.Gameplay.Player
   {
     private const float LeftXBorder = -9;
     private const float RightXBorder = 8.5f;
+    private const float UpperBorder = 4.5f;
 
     [SerializeField, Range(0.1f, 50f)]
     private float _movementSpeed;
@@ -21,17 +22,15 @@ namespace Game.Gameplay.Player
 
     private float MinX =>
       LeftXBorder + GetComponent<Collider2D>().bounds.extents.x;
-
     private float MaxX =>
+      RightXBorder - GetComponent<Collider2D>().bounds.extents.x;
+    private float MaxY =>
+      RightXBorder - GetComponent<Collider2D>().bounds.extents.x;
+    private float MinY =>
       RightXBorder - GetComponent<Collider2D>().bounds.extents.x;
 
     private Rigidbody2D _rigidbody;
     private bool _movingAllowed;
-    
-    private StateMachine _stateMachine;
-    private CoroutineRunner _coroutineRunner;
-    private ObstacleFactory _obstacleFactory;
-    private TargetFactory _targetFactory;
 
     private void Awake()
     {
@@ -39,35 +38,32 @@ namespace Game.Gameplay.Player
       _rigidbody = GetComponent<Rigidbody2D>();
       _rigidbody.gravityScale = 0;
       
-      _stateMachine = AllServices.Instance.Resolve<StateMachine>();
-      _coroutineRunner = AllServices.Instance.Resolve<CoroutineRunner>();
-      _obstacleFactory = AllServices.Instance.Resolve<ObstacleFactory>();
-      _targetFactory = AllServices.Instance.Resolve<TargetFactory>();
+      AllServices.Instance.Resolve<StateMachine>();
+      AllServices.Instance.Resolve<CoroutineRunner>();
+      AllServices.Instance.Resolve<ObstacleFactory>();
+      AllServices.Instance.Resolve<TargetFactory>();
     }
 
     private void Update()
     {
-      if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
-      {
-        if(_movingAllowed)
-          _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-        else
-          _stateMachine.NextState(new GameLoopState(_coroutineRunner, _obstacleFactory, _targetFactory));
-      }
       if(_movingAllowed)
-        transform.Translate(Vector2.right * _movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime);
-      ClampXPosition();
+        transform.Translate((Vector2.right * Input.GetAxis("Horizontal")  + Vector2.up * Input.GetAxis("Vertical")) 
+                            * _movementSpeed * Time.deltaTime);
+      
+      ClampPosition();
     }
 
-    private void ClampXPosition()
+    private void ClampPosition()
     {
       if (transform.position.x < MinX)
         transform.position = transform.position.SetX(MinX);
       if (transform.position.x > MaxX)
         transform.position = transform.position.SetX(MaxX);
+      if (transform.position.y > MaxY)
+        transform.position = transform.position.SetY(MaxY);
     }
 
-    public void StartFalling()
+    public void StartMoving()
     {
       _movingAllowed = true;
       _rigidbody.gravityScale = 1;

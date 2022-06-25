@@ -21,7 +21,7 @@ namespace Game.Gameplay.Player
 
     public void Enter()
     {
-      Object.FindObjectOfType<Movement>().StartFalling();
+      Object.FindObjectOfType<Movement>().StartMoving();
       _coroutineRunner.StartCoroutine(SpawnObsatcles());
       _coroutineRunner.StartCoroutine(SpawnTargets());
     }

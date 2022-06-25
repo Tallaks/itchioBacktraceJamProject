@@ -1,0 +1,142 @@
+diff --git a/Assets/Scenes/Game.unity b/Assets/Scenes/Game.unity
+index 17d21c9..1a0931f 100644
+--- a/Assets/Scenes/Game.unity
++++ b/Assets/Scenes/Game.unity
+@@ -529,7 +529,7 @@ Rigidbody2D:
+   m_PrefabInstance: {fileID: 0}
+   m_PrefabAsset: {fileID: 0}
+   m_GameObject: {fileID: 252370198}
+-  m_BodyType: 0
++  m_BodyType: 1
+   m_Simulated: 1
+   m_UseFullKinematicContacts: 0
+   m_UseAutoMass: 0
+diff --git a/Assets/Scripts/Game/Gameplay/GameLoopState.cs b/Assets/Scripts/Game/Gameplay/GameLoopState.cs
+index 7b490d0..c99766c 100644
+--- a/Assets/Scripts/Game/Gameplay/GameLoopState.cs
++++ b/Assets/Scripts/Game/Gameplay/GameLoopState.cs
+@@ -21,7 +21,7 @@ namespace Game.Gameplay.Player
+ 
+     public void Enter()
+     {
+-      Object.FindObjectOfType<Movement>().StartFalling();
++      Object.FindObjectOfType<Movement>().StartMoving();
+       _coroutineRunner.StartCoroutine(SpawnObsatcles());
+       _coroutineRunner.StartCoroutine(SpawnTargets());
+     }
+diff --git a/Assets/Scripts/Game/Gameplay/Player/Movement.cs b/Assets/Scripts/Game/Gameplay/Player/Movement.cs
+index b62c73d..251ff7d 100644
+--- a/Assets/Scripts/Game/Gameplay/Player/Movement.cs
++++ b/Assets/Scripts/Game/Gameplay/Player/Movement.cs
+@@ -12,6 +12,7 @@ namespace Game.Gameplay.Player
+   {
+     private const float LeftXBorder = -9;
+     private const float RightXBorder = 8.5f;
++    private const float UpperBorder = 4.5f;
+ 
+     [SerializeField, Range(0.1f, 50f)]
+     private float _movementSpeed;
+@@ -21,17 +22,15 @@ namespace Game.Gameplay.Player
+ 
+     private float MinX =>
+       LeftXBorder + GetComponent<Collider2D>().bounds.extents.x;
+-
+     private float MaxX =>
+       RightXBorder - GetComponent<Collider2D>().bounds.extents.x;
++    private float MaxY =>
++      RightXBorder - GetComponent<Collider2D>().bounds.extents.x;
++    private float MinY =>
++      RightXBorder - GetComponent<Collider2D>().bounds.extents.x;
+ 
+     private Rigidbody2D _rigidbody;
+     private bool _movingAllowed;
+-    
+-    private StateMachine _stateMachine;
+-    private CoroutineRunner _coroutineRunner;
+-    private ObstacleFactory _obstacleFactory;
+-    private TargetFactory _targetFactory;
+ 
+     private void Awake()
+     {
+@@ -39,35 +38,32 @@ namespace Game.Gameplay.Player
+       _rigidbody = GetComponent<Rigidbody2D>();
+       _rigidbody.gravityScale = 0;
+       
+-      _stateMachine = AllServices.Instance.Resolve<StateMachine>();
+-      _coroutineRunner = AllServices.Instance.Resolve<CoroutineRunner>();
+-      _obstacleFactory = AllServices.Instance.Resolve<ObstacleFactory>();
+-      _targetFactory = AllServices.Instance.Resolve<TargetFactory>();
++      AllServices.Instance.Resolve<StateMachine>();
++      AllServices.Instance.Resolve<CoroutineRunner>();
++      AllServices.Instance.Resolve<ObstacleFactory>();
++      AllServices.Instance.Resolve<TargetFactory>();
+     }
+ 
+     private void Update()
+     {
+-      if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
+-      {
+-        if(_movingAllowed)
+-          _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+-        else
+-          _stateMachine.NextState(new GameLoopState(_coroutineRunner, _obstacleFactory, _targetFactory));
+-      }
+       if(_movingAllowed)
+-        transform.Translate(Vector2.right * _movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime);
+-      ClampXPosition();
++        transform.Translate((Vector2.right * Input.GetAxis("Horizontal")  + Vector2.up * Input.GetAxis("Vertical")) 
++                            * _movementSpeed * Time.deltaTime);
++      
++      ClampPosition();
+     }
+ 
+-    private void ClampXPosition()
++    private void ClampPosition()
+     {
+       if (transform.position.x < MinX)
+         transform.position = transform.position.SetX(MinX);
+       if (transform.position.x > MaxX)
+         transform.position = transform.position.SetX(MaxX);
++      if (transform.position.y > MaxY)
++        transform.position = transform.position.SetY(MaxY);
+     }
+ 
+-    public void StartFalling()
++    public void StartMoving()
+     {
+       _movingAllowed = true;
+       _rigidbody.gravityScale = 1;
+diff --git a/Assets/Scripts/Game/Gameplay/StartGameState.cs b/Assets/Scripts/Game/Gameplay/StartGameState.cs
+index f2bcfdc..fff0d43 100644
+--- a/Assets/Scripts/Game/Gameplay/StartGameState.cs
++++ b/Assets/Scripts/Game/Gameplay/StartGameState.cs
+@@ -1,4 +1,5 @@
+ using System.Collections;
++using Game.Infrastructure;
+ using Game.Infrastructure.Services;
+ using Game.Infrastructure.Services.StateMachine;
+ using UnityEngine;
+@@ -9,17 +10,21 @@ namespace Game.Gameplay
+   public class StartGameState : IState
+   {
+     private readonly CoroutineRunner _coroutineRunner;
+-
++    
+     public StartGameState(CoroutineRunner coroutineRunner) => 
+       _coroutineRunner = coroutineRunner;
+ 
+-    public void Enter() => 
++    public void Enter()
++    {
+       _coroutineRunner.StartCoroutine(LoadGameScene());
++    }
+ 
+     private IEnumerator LoadGameScene()
+     {
+       AsyncOperation loadOperation = SceneManager.LoadSceneAsync("Game", LoadSceneMode.Single);
+       yield return loadOperation;
++
++      new GameObject().AddComponent<GameStarter>();
+     }
+ 
+     public void Exit()
