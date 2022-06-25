@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.MainMenu
+namespace Game.UI.MainMenu
 {
   public class MainPanel : MonoBehaviour
   {

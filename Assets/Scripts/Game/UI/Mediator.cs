@@ -1,9 +1,9 @@
+using Game.UI.MainMenu;
 using Sirenix.OdinInspector;
-using UI.MainMenu;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UI
+namespace Game.UI
 {
   public class Mediator : MonoBehaviour
   {
