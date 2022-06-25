@@ -6,7 +6,7 @@ namespace Game.Application.GameScore
   {
     public int Value { get; private set; }
 
-    public void AddScoreFor(Target target)
+    public void AddFor(Target target)
     {
       Value += target.ScorePoint;
     }
