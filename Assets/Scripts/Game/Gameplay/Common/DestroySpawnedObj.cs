@@ -10,7 +10,7 @@ namespace Game.Gameplay.Common
     {
       if (collision.gameObject.GetComponent<PlayerKiller>() ||
           collision.gameObject.GetComponent<Target>() ||
-          collision.gameObject.GetComponent<Aid>())
+          collision.gameObject.GetComponent<Aid.Aid>())
         Destroy(collision.gameObject);
     }
   }

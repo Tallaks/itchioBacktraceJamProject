@@ -15,7 +15,7 @@ namespace Game.Gameplay.States
 
     public void Enter()
     {
-      foreach (Aid aid in Object.FindObjectsOfType<Aid>()) 
+      foreach (Aid.Aid aid in Object.FindObjectsOfType<Aid.Aid>()) 
         Object.Destroy(aid.gameObject);
 
       foreach (MovingLeftObject movingLeftObject in Object.FindObjectsOfType<MovingLeftObject>())
