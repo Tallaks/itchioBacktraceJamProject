@@ -15,10 +15,21 @@ namespace Game.Gameplay.Player
       _aidFactory.AttachToPLayer(GetComponent<PlayerEntity>());
     }
 
+
+        [SerializeField] private float coolDownTime = 2f;
+        private float nextAidDropTime;
+
     private void Update()
     {
-      if (Input.GetKeyDown(KeyCode.Space)) 
-        _aidFactory.Create();
+        if (Time.time > nextAidDropTime)
+         {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _aidFactory.Create();
+                nextAidDropTime = Time.time + coolDownTime;
+            }
+        }
+      
     }
   }
 }
