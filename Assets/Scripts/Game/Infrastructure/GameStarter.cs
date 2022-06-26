@@ -1,4 +1,3 @@
-using Game.Gameplay.Player;
 using Game.Gameplay.States;
 using Game.Infrastructure.Services;
 using Game.Infrastructure.Services.Factory;
@@ -30,6 +29,9 @@ namespace Game.Infrastructure
 
     private void StartGame()
     {
+      _obstacleFactory.SetParent(GameObject.Find("Obstacles"));
+      _targetFactory.SetParent(GameObject.Find("Targets"));
+      
       _stateMachine.NextState(new GameLoopState(_coroutineRunner, _obstacleFactory, _targetFactory));
       Destroy(gameObject);
     }

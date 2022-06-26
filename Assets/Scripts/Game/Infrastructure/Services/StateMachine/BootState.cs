@@ -33,7 +33,7 @@ namespace Game.Infrastructure.Services.StateMachine
       AsyncOperation loadOperation = SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Single);
       yield return loadOperation;
       
-      AllServices.Instance.Resolve<StateMachine>().NextState(new MainMenuState());
+      AllServices.Instance.Resolve<StateMachine>().NextState(new MainMenuState(_runner));
     }
 
     public void Exit()

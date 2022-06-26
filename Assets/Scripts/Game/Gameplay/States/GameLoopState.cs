@@ -26,7 +26,7 @@ namespace Game.Gameplay.States
     public void Enter()
     {
       Object.FindObjectOfType<Movement>().StartMoving();
-      _obstaclesSpawnRoutine = _coroutineRunner.StartCoroutine(SpawnObsatcles());
+      _obstaclesSpawnRoutine = _coroutineRunner.StartCoroutine(SpawnObstacles());
       _targetSpawnRoutine = _coroutineRunner.StartCoroutine(SpawnTargets());
     }
 
@@ -34,13 +34,13 @@ namespace Game.Gameplay.States
     {
       while (true)
       {
-        float spawnDelay = Random.Range(2, 6);
+        float spawnDelay = Random.Range(5, 10);
         yield return new WaitForSeconds(spawnDelay);
         _targetFactory.Create();
       }
     }
 
-    private IEnumerator SpawnObsatcles()
+    private IEnumerator SpawnObstacles()
     {
       while (true)
       {

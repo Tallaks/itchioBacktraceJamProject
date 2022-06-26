@@ -29,7 +29,10 @@ namespace Game.Gameplay.States
       AsyncOperation loadOperation = SceneManager.LoadSceneAsync("Game", LoadSceneMode.Additive);
       yield return loadOperation;
 
-      new GameObject().AddComponent<GameStarter>();
+      GameStarter gameStarter = 
+        Object.FindObjectOfType<GameStarter>() != null ? 
+        Object.FindObjectOfType<GameStarter>() : 
+        new GameObject().AddComponent<GameStarter>();
       _mediator.SetActiveGameplayUi(true);
     }
 
