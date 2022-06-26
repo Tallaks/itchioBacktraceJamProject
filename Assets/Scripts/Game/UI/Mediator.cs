@@ -25,9 +25,11 @@ namespace Game.UI
     [Button, GUIColor(1, 1, 0), DisableInEditorMode] public void SetActiveMainMenuUi(bool state) => MainPanel.SetActiveMainPanel(state);
     [Button, GUIColor(1, 0, 1), DisableInEditorMode] public void ChangeMusicState() => SidePanel.ChangeMusicState();
     [Button, GUIColor(0, 1, 1), DisableInEditorMode] public void SetActiveGameplayUi(bool state) => Score.gameObject.SetActive(state);
+    [Button, GUIColor(0, 1, 1), DisableInEditorMode] public void ResetScore() => Score.Reset();
     [Button, GUIColor(0, 1, 1), DisableInEditorMode] public void AddScore(int value) => Score.AddScore(value);
     [Button, GUIColor(0, 1, 1), DisableInEditorMode] public void SetActiveGameOverPanel(bool state) => GameOverPanel.SetActivePanel(state);
     [Button, GUIColor(0, 1, 1), DisableInEditorMode] public void ReturnToMenu() => GameOverPanel.RetutnToMainMenu();
+    [Button, GUIColor(0, 1, 1), DisableInEditorMode] public void RestartGame() => GameOverPanel.RestartGame();
     [Button, GUIColor(1, 0, 0), DisableInEditorMode] public void ExitGame() => MainPanel.ExitGame();
   }
 }

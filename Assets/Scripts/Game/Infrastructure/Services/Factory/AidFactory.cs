@@ -16,7 +16,6 @@ namespace Game.Infrastructure.Services.Factory
       var prefab = Resources.Load<GameObject>("Prefabs/Gameplay/Aid");
       var aid = Object.Instantiate(prefab, _player.transform.position.SetY(_player.transform.position.y - 0.5f),
         Quaternion.identity).GetComponent<Aid>();
-      aid.Attach(_player);
       return aid;
     }
   }

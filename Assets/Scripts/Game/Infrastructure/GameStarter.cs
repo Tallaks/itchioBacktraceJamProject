@@ -2,6 +2,7 @@ using Game.Gameplay.States;
 using Game.Infrastructure.Services;
 using Game.Infrastructure.Services.Factory;
 using Game.Infrastructure.Services.StateMachine;
+using Game.UI;
 using UnityEngine;
 
 namespace Game.Infrastructure
@@ -9,16 +10,12 @@ namespace Game.Infrastructure
   public class GameStarter : MonoBehaviour
   {
     private StateMachine _stateMachine;
-    private CoroutineRunner _coroutineRunner;
-    private ObstacleFactory _obstacleFactory;
-    private TargetFactory _targetFactory;
+    private Mediator _mediator;
 
     private void Awake()
     {
       _stateMachine = AllServices.Instance.Resolve<StateMachine>();
-      _coroutineRunner = AllServices.Instance.Resolve<CoroutineRunner>();
-      _obstacleFactory = AllServices.Instance.Resolve<ObstacleFactory>();
-      _targetFactory = AllServices.Instance.Resolve<TargetFactory>();
+      _mediator = AllServices.Instance.Resolve<Mediator>();
     }
 
     private void Update()
@@ -29,10 +26,7 @@ namespace Game.Infrastructure
 
     private void StartGame()
     {
-      _obstacleFactory.SetParent(GameObject.Find("Obstacles"));
-      _targetFactory.SetParent(GameObject.Find("Targets"));
-      
-      _stateMachine.NextState(new GameLoopState(_coroutineRunner, _obstacleFactory, _targetFactory));
+      _stateMachine.NextState(new GameLoopState());
       Destroy(gameObject);
     }
   }

@@ -1,4 +1,5 @@
 using System.Collections;
+using Game.Application.GameScore;
 using Game.Infrastructure;
 using Game.Infrastructure.Services;
 using Game.Infrastructure.Services.StateMachine;
@@ -21,6 +22,7 @@ namespace Game.Gameplay.States
 
     public void Enter()
     {
+      Score.Reset();
       _coroutineRunner.StartCoroutine(LoadGameScene());
     }
 

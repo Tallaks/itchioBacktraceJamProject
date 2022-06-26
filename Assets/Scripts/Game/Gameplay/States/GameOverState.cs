@@ -22,6 +22,8 @@ namespace Game.Gameplay.States
 
     public void Exit()
     {
+      _mediator.SetActiveGameplayUi(false);
+      _mediator.SetActiveGameOverPanel(false);
     }
   }
 }

@@ -1,4 +1,3 @@
-using Game.Application.GameScore;
 using Game.Gameplay.Common;
 using Game.Gameplay.States;
 using Game.Infrastructure.Services;
@@ -12,13 +11,9 @@ namespace Game.Gameplay.Player
   public class PlayerEntity : MonoBehaviour, IKillable
   {
     private StateMachine _stateMachine;
-    public CurrentScore Score { get; private set; }
 
-    private void Awake()
-    {
+    private void Awake() => 
       _stateMachine = AllServices.Instance.Resolve<StateMachine>();
-      Score = new CurrentScore();
-    }
 
     private void OnTriggerEnter2D(Collider2D col)
     {

@@ -4,9 +4,17 @@ using Game.UI;
 
 namespace Game.Application.GameScore
 {
-  public class CurrentScore
+  public class Score
   {
+    public static Score Instance;
+    
     public int Value { get; private set; }
+
+    public static void Reset()
+    {
+      Instance = new Score();
+      AllServices.Instance.Resolve<Mediator>().ResetScore();
+    }
 
     public void AddFor(Target target)
     {
