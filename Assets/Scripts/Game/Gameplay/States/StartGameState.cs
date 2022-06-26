@@ -35,7 +35,20 @@ namespace Game.Gameplay.States
         Object.FindObjectOfType<GameStarter>() != null ? 
         Object.FindObjectOfType<GameStarter>() : 
         new GameObject().AddComponent<GameStarter>();
+
+      CheckTutorial();
       _mediator.SetActiveGameplayUi(true);
+    }
+
+    private static void CheckTutorial()
+    {
+      if (PlayerPrefs.GetString("Tutorial", "true") == "true")
+      {
+        var prefab = Resources.Load<GameObject>("Prefabs/Gameplay/Tutorial");
+        Object.Instantiate(prefab, new Vector3(2,0,0), Quaternion.identity);
+        PlayerPrefs.SetString("Tutorial", "false");
+        PlayerPrefs.Save();
+      }
     }
 
     public void Exit()

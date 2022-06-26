@@ -1,5 +1,4 @@
-using Game.Gameplay.Player;
-using Game.Gameplay.Targets;
+using System.Linq;
 using UnityEngine;
 
 namespace Game.Gameplay.Common
@@ -8,9 +7,7 @@ namespace Game.Gameplay.Common
   {
     public void OnTriggerEnter2D(Collider2D collision)
     {
-      if (collision.gameObject.GetComponent<PlayerKiller>() ||
-          collision.gameObject.GetComponent<Target>() ||
-          collision.gameObject.GetComponent<Aid.Aid>())
+      if (collision.gameObject.GetComponent<Component>().GetType().GetInterfaces().Contains(typeof(IDestroyableIfInvisible)))
         Destroy(collision.gameObject);
     }
   }

@@ -1,9 +1,10 @@
+using Game.Gameplay.Common;
 using UnityEngine;
 
 namespace Game.Gameplay.Targets
 {
   [RequireComponent(typeof(Collider2D), typeof(TargetView))]
-  public class Target : MonoBehaviour
+  public class Target : MonoBehaviour, IDestroyableIfInvisible
   {
     [SerializeField] private int _scorePoints;
 

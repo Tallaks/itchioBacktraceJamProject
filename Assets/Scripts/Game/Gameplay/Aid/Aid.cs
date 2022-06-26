@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Game.Gameplay.Aid
 {
   [RequireComponent(typeof(Collider2D))]
-  public class Aid : MonoBehaviour, IKillable
+  public class Aid : MonoBehaviour, IKillable, IDestroyableIfInvisible
   {
     [SerializeField, Required] private AidAudio _audio;
     [SerializeField, Required] private AidMovement _movement;
