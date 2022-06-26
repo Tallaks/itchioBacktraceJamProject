@@ -3,6 +3,7 @@ using Game.Gameplay.Common;
 using Game.Gameplay.States;
 using Game.Infrastructure.Services;
 using Game.Infrastructure.Services.StateMachine;
+using Game.UI;
 using UnityEngine;
 
 namespace Game.Gameplay.Player
@@ -27,7 +28,7 @@ namespace Game.Gameplay.Player
 
     public void KillSelf()
     {
-      _stateMachine.NextState(new GameOverState());
+      _stateMachine.NextState(new GameOverState(AllServices.Instance.Resolve<Mediator>()));
       Destroy(gameObject);
     }
   }
