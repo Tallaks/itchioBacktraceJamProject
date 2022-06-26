@@ -16,7 +16,7 @@ namespace Game.Gameplay.Aid
 
     private void Awake()
     {
-      GetComponent<Animation>().Play();
+      //GetComponent<Animation>().Play();
       _movement.BalanceGravity();
     }
 

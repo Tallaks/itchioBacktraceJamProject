@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 7226146846402072231}
   - component: {fileID: 7226146846402072226}
   - component: {fileID: 7226146846402072229}
-  - component: {fileID: 7639215091218077678}
+  - component: {fileID: -7335409136091175799}
   m_Layer: 0
   m_Name: Aid
   m_TagString: Untagged
@@ -313,21 +313,26 @@ CapsuleCollider2D:
   m_Offset: {x: -0.02595663, y: -0.006489257}
   m_Size: {x: 2.6612253, y: 2.947418}
   m_Direction: 0
---- !u!111 &7639215091218077678
-Animation:
+--- !u!95 &-7335409136091175799
+Animator:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7226146846402072230}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 9bad81ca2f415f645b740a9ce0b658e1, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 448c050c902e2e14ea1a9f6e252ffd45, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8255131428338205375
 GameObject:
   m_ObjectHideFlags: 0
