@@ -63,7 +63,7 @@ namespace Game.Gameplay.States
     {
       while (true)
       {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(6);
         _obstacleFactory.Create();
       }
     }

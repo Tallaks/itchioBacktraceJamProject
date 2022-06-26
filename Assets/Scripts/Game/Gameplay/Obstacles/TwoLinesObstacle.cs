@@ -11,8 +11,8 @@ namespace Game.Gameplay.Obstacles
     
     public void SetDistanceBetweenRects(float distance)
     {
-      _upperRect.transform.position = _upperRect.transform.position.SetY(distance / 2);
-      _lowerRect.transform.position = _lowerRect.transform.position.SetY(-distance / 2);
+      _upperRect.transform.position = _upperRect.transform.position.SetY(distance);
+     // _lowerRect.transform.position = _lowerRect.transform.position.SetY(-distance / 2);
     }
   }
 }
