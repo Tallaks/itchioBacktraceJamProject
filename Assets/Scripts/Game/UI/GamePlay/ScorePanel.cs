@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.UI.Gameplay
 {
-  public class CurrentScore : MonoBehaviour
+  public class ScorePanel : MonoBehaviour
   {
     [SerializeField, Required] 
     private TMP_Text _scoreText;
@@ -14,12 +14,18 @@ namespace Game.UI.Gameplay
     [SerializeField, Required]
     private TMP_Text _addedTextPrefab;
 
-    public void Reset() => 
+    [SerializeField, Required] 
+    private TMP_Text _recordText;
+
+    public void Reset()
+    {
       _scoreText.text = 0.ToString();
+      _recordText.text = Score.Instance.Highest.ToString();
+    }
 
     public void AddScore(int value)
     {
-      _scoreText.text = Score.Instance.Value.ToString();
+      _scoreText.text = Score.Instance.Current.ToString();
       ShowAddingScoreInstance(value);
     }
 

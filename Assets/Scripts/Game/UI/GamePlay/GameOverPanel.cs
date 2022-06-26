@@ -45,11 +45,11 @@ namespace Game.UI.Gameplay
       _stateMachine.NextState(new RestartGameState(_stateMachine, _coroutineRunner));
 
     private bool IsNewRecord() => 
-      false;
+      Score.Instance.IsNewRecord;
 
     private void UpdateInfo()
     {
-      int score = Score.Instance.Value;
+      int score = Score.Instance.Current;
       _scoreText.text = score.ToString();
       _recordText.SetActive(IsNewRecord());
     }

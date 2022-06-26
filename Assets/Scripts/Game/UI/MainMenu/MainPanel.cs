@@ -10,7 +10,6 @@ namespace Game.UI.MainMenu
   public class MainPanel : MonoBehaviour
   {
     [Required, SceneObjectsOnly] public Button StartGameButton;
-    [Required, SceneObjectsOnly] public Button HighScoreButton;
     [Required, SceneObjectsOnly] public Button ExitButton;
 
     private StateMachine _stateMachine;
@@ -22,7 +21,6 @@ namespace Game.UI.MainMenu
       _coroutineRunner = AllServices.Instance.Resolve<CoroutineRunner>();
 
       StartGameButton.onClick.AddListener(StartGame);
-      HighScoreButton.onClick.AddListener(OpenHighScore);
       ExitButton.onClick.AddListener(ExitGame);
     }
 
@@ -30,11 +28,6 @@ namespace Game.UI.MainMenu
     {
       _stateMachine.NextState(new StartGameState(_coroutineRunner, AllServices.Instance.Resolve<Mediator>()));
       SetActiveMainPanel(false);
-    }
-
-    public void OpenHighScore()
-    {
-      Debug.Log("High Score");
     }
 
     public void SetActiveMainPanel(bool state) =>

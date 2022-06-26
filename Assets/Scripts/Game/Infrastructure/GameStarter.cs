@@ -26,6 +26,7 @@ namespace Game.Infrastructure
 
     private void StartGame()
     {
+      _mediator.SetActiveGameplayUi(true);
       _stateMachine.NextState(new GameLoopState());
       Destroy(gameObject);
     }

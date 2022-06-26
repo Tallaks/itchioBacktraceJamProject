@@ -30,7 +30,6 @@ namespace Game.Gameplay.States
 
     public void Enter()
     {
-      _mediator.SetActiveGameplayUi(true);
       Object.FindObjectOfType<Movement>().StartMoving();
       
       StartSpawning();

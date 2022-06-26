@@ -1,4 +1,5 @@
 using Game.Gameplay.Common;
+using Game.Gameplay.Player;
 using Game.Infrastructure.Services.StateMachine;
 using Game.UI;
 using UnityEngine;
@@ -14,6 +15,9 @@ namespace Game.Gameplay.States
 
     public void Enter()
     {
+      foreach (Aid aid in Object.FindObjectsOfType<Aid>()) 
+        Object.Destroy(aid.gameObject);
+
       foreach (MovingLeftObject movingLeftObject in Object.FindObjectsOfType<MovingLeftObject>())
         movingLeftObject.StopMoving();
 

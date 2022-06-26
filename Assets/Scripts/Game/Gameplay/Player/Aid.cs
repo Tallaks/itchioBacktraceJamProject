@@ -19,11 +19,11 @@ namespace Game.Gameplay.Player
     
     private void ConsumeAid(Target target)
     {
-      Score.Instance.AddFor(target);
-      
-      var targetView = target.GetComponent<TargetView>();
-      if (!targetView.isHelped)
-        targetView.ShowIsHelped();
+      if (!target.isHelped)
+      {
+        target.Help();
+        Score.Instance.AddFor(target);
+      }
       Destroy(gameObject);
     }
   }
