@@ -19,5 +19,8 @@ namespace Game.Application.Sound
     
     public void TurnOn(bool on) =>
       GetComponent<AudioSource>().mute = !on;
+
+    public void Restart() => 
+      GetComponent<AudioSource>().Play();
   }
 }

@@ -12,20 +12,17 @@ namespace Game.Gameplay.Player
   {
     private const float LeftXBorder = -9;
     private const float RightXBorder = 8.5f;
-    private const float UpperBorder = 4.5f;
+    private const float UpperBorder = 5f;
 
     [SerializeField, Range(0.1f, 50f)]
     private float _movementSpeed;
     
-    [SerializeField, Range(1, 15)]
-    private float _jumpForce;
-
     private float MinX =>
       LeftXBorder + GetComponent<Collider2D>().bounds.extents.x;
     private float MaxX =>
       RightXBorder - GetComponent<Collider2D>().bounds.extents.x;
     private float MaxY =>
-      RightXBorder - GetComponent<Collider2D>().bounds.extents.x;
+      UpperBorder - GetComponent<Collider2D>().bounds.extents.x;
     private float MinY =>
       RightXBorder - GetComponent<Collider2D>().bounds.extents.x;
 

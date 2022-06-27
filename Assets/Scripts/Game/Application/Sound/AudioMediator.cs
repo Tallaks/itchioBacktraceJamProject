@@ -40,5 +40,13 @@ namespace Game.Application.Sound
     
     public void RemoveMusic(MusicSource musicSource) => 
       _musicSources.Remove(musicSource);
+
+    public void RestartMusic()
+    {
+      foreach (MusicSource musicSource in _musicSources)
+      {
+        musicSource.Restart();
+      }
+    }
   }
 }

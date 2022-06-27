@@ -144,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fallingSound: {fileID: 8300000, guid: 995e97490740ea24d8cb465c3cf4637b, type: 3}
   _breakAudio: {fileID: 8300000, guid: 39458d42fc905bf4fa4afb3465af5119, type: 3}
+  _consumedSound: {fileID: 8300000, guid: 17c635d79bbe9c149b0e029367bd1149, type: 3}
 --- !u!114 &6915008412972949010
 MonoBehaviour:
   m_ObjectHideFlags: 0

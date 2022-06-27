@@ -34,8 +34,18 @@ namespace Game.Gameplay.Aid
       if (!target.isHelped)
       {
         target.Help();
+        _audio.PlayConsumed();
         Score.Instance.AddFor(target);
       }
+
+      GetComponent<SpriteRenderer>().enabled = false;
+      GetComponent<Collider2D>().enabled = false;
+      StartCoroutine(DelayedDestroy());
+    }
+
+    private IEnumerator DelayedDestroy()
+    {
+      yield return new WaitForSeconds(1);
       Destroy(gameObject);
     }
 

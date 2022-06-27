@@ -1,5 +1,4 @@
 using Game.Gameplay.Common;
-using Game.Gameplay.Player;
 using Game.Infrastructure.Services.StateMachine;
 using Game.UI;
 using UnityEngine;
