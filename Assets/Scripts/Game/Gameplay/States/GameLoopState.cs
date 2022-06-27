@@ -61,11 +61,24 @@ namespace Game.Gameplay.States
 
     private IEnumerator SpawnObstacles()
     {
+      float time = 0;
+      float minDelay = 3;
+      float maxDelay = 7;
       while (true)
       {
-        yield return new WaitForSeconds(6);
-        _obstacleFactory.Create();
+        float currentDelay = Random.Range(minDelay, maxDelay);
+        time += currentDelay;
+        yield return new WaitForSeconds(currentDelay);
+        _obstacleFactory.Create().transform.localScale = GetRandomScale(time);
+        minDelay = Mathf.Clamp(3 - time/120f, 0.5f, 3f);
+        maxDelay = Mathf.Clamp(3 - time/120f, 0.5f, 3f);
       }
+    }
+
+    private Vector3 GetRandomScale(float time)
+    {
+      float modifier = Random.Range(1, 1 + time / 120f);
+      return Vector3.one * modifier;
     }
   }
 }
