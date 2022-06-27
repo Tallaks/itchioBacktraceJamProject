@@ -11,6 +11,8 @@ namespace Game.UI.MainMenu
   {
     [Required, SceneObjectsOnly] public Button StartGameButton;
     [Required, SceneObjectsOnly] public Button ExitButton;
+    [Required, SceneObjectsOnly] public Button InfoButton;
+    [Required, SceneObjectsOnly] public GameObject InfoPanel;
 
     private StateMachine _stateMachine;
     private CoroutineRunner _coroutineRunner;
@@ -22,7 +24,11 @@ namespace Game.UI.MainMenu
 
       StartGameButton.onClick.AddListener(StartGame);
       ExitButton.onClick.AddListener(ExitGame);
+      InfoButton.onClick.AddListener(SetActiveInfoPanel);
     }
+
+    private void SetActiveInfoPanel() => 
+      InfoPanel.SetActive(!InfoPanel.activeSelf);
 
     public void StartGame()
     {
