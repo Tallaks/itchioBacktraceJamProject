@@ -32,7 +32,14 @@ namespace Game.UI.Gameplay
     private void ShowAddingScoreInstance(int value)
     {
       TMP_Text addedScoreText = Instantiate(_addedTextPrefab, _scoreText.transform.parent);
-      addedScoreText.text = "+" + value;
+      if (value < 0)
+      {
+        addedScoreText.text = "-" + value;
+        addedScoreText.color = Color.red;
+      }
+      else
+        addedScoreText.text = "+" + value;
+
       addedScoreText.GetComponent<RectTransform>().DOMoveY(_scoreText.transform.position.y, 1);
       addedScoreText.DOFade(0, 1);
     }

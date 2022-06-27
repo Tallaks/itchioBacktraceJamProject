@@ -17,7 +17,7 @@ namespace Game.Infrastructure.Services.Factory
     }
 
     private Vector3 GetSpawnPosition() => 
-      new Vector3(15, Random.Range(-2f, 6f), 0);
+      new Vector3(15, Random.Range(-4f, 6f), 0);
 
     public void SetParent(GameObject gameObjectParent) => 
       _parent = gameObjectParent.transform;

@@ -47,6 +47,7 @@ namespace Game.Gameplay.Aid
       _audio.PlayBreaking();
       _movement.Stop();
       _view.Break();
+      Score.Instance.Decrease(50);
       gameObject.AddComponent<MovingLeftObject>();
       yield return new WaitForSeconds(1.1f);
       Destroy(gameObject);

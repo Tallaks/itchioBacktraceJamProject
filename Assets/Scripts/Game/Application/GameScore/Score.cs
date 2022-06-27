@@ -12,7 +12,15 @@ namespace Game.Application.GameScore
     private readonly HighestScore _newRecordChecker = new HighestScore();
 
     public bool IsNewRecord => _newRecordChecker.RecordUpdated;
-    public int Current { get; private set; }
+
+    private int _current;
+    
+    public int Current
+    {
+      get => _current;
+      private set => _current = value < 0 ? 0 : value;
+    }
+
     public int Highest => _newRecordChecker.RecordScore;
     
     public static void Reset()
@@ -27,6 +35,14 @@ namespace Game.Application.GameScore
       Current += target.ScorePoint;
       _newRecordChecker.CheckRecord(Current);
       AllServices.Instance.Resolve<Mediator>().AddScore(target.ScorePoint);
+    }
+
+    public void Decrease(int value)
+    {
+      Current -= value;
+      _newRecordChecker.CheckRecord(Current);
+      AllServices.Instance.Resolve<Mediator>().AddScore(-value);
+      
     }
   }
 }
