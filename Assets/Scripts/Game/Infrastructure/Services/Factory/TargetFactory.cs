@@ -19,6 +19,6 @@ namespace Game.Infrastructure.Services.Factory
       _parent = gameObject.transform;
 
     private Vector3 GetSpawnPosition() => 
-      new Vector3(15, -5, 0);
+      new Vector3(15, -4.52f, 0);
   }
 }

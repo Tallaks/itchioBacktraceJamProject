@@ -10,6 +10,6 @@ namespace Game.Gameplay.Targets
     [SerializeField, Required] private SpriteRenderer _spriteRenderer;
     
     public void ShowIsHelped() => 
-      _spriteRenderer.color = Color.gray;
+      _spriteRenderer.color = Color.green;
   }
 }
